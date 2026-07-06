@@ -8,7 +8,7 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
         return res.status(httpStatus.UNAUTHORIZED).json({message:"Invalid Token"});
     }
     try{
-        const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || "development-secret");
         (req as any).user = decoded;
         next();
     }
